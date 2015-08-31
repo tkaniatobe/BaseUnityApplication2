@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{BDF1F940-08C8-09A2-AC34-8ABB35FC6785}</ProjectGuid>
+	<ProjectGuid>{B6B6D8C0-EA44-18DB-66F3-A70D94D3D0DD}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Application\ApplicationManager.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\BaseSection.cs" />
+     <Compile Include="Assets\Scripts\Application\Sections\EventListener.cs" />
+     <Compile Include="Assets\Scripts\Application\Sections\EventManager.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\MainMenuSection.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\SectionManager.cs" />
      <Compile Include="Assets\Scripts\RotateCube.cs" />
