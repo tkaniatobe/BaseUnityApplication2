@@ -30,13 +30,13 @@ public class ApplicationController : MonoBehaviour {
 	void Update() {
 		//If Left Arrow is pressed move state back
         if (Input.GetKeyUp("left")) {
-        	Debug.Log("Key Left");
+        	//Debug.Log("Key Left");
         	UpdateState("back");
         	DispatchEvent("OnUpdateState");
         }
 		//If right Arrow is pressed move state forward
         if (Input.GetKeyDown("right")) {
-			Debug.Log("Key Right");
+			//Debug.Log("Key Right");
 			UpdateState("forward");
 			DispatchEvent("OnUpdateState");
         }
@@ -50,7 +50,7 @@ public class ApplicationController : MonoBehaviour {
 	private void InitApp() { 
 		//Set numerical value of current chapter and page.
 
-		UpdateState("forward");
+		UpdateState("start");
 
 		//Dispatch External Event
 		DispatchExternalEvent("OnUpdateState");
@@ -58,20 +58,45 @@ public class ApplicationController : MonoBehaviour {
 		DispatchEvent("OnUpdateState");
 	}
 
-	//TODO:
-	private void UpdateState(string _direction) { 
-		if(_direction == "forward") { 
-			/*ApplicationModel.CurChapter = ApplicationModel.Chapter.One.GetHashCode() + 1;
-			ApplicationModel.CurPage = ApplicationModel.Page.One.GetHashCode() + 1;*/
-			ApplicationModel.CurChapter += 1;
-			ApplicationModel.CurPage += 1;
-		} else { 
-			//ApplicationModel.CurChapter = ApplicationModel.Chapter.One.GetHashCode() - 1;
-			//ApplicationModel.CurPage = ApplicationModel.Page.One.GetHashCode() - 1;
+	
+	private void UpdateState(string _action) { 
+		
+
+		//Set first Chapter/Page. Called at Start()
+		if(_action == "start") {
+			ApplicationModel.Chapter = ApplicationModel.ChapterState.One;
+			ApplicationModel.Page = ApplicationModel.PageState.One;
 		}
 
-		//Concatentate CurChapter and CurPage into CurState string. (1,1)
-		ApplicationModel.CurState = ApplicationModel.CurChapter.ToString() + "," + ApplicationModel.CurPage;
+
+		if(_action == "forward") { 
+			int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
+			
+			//If current page is less the Chapter page length. Increment Page.
+			//Else increment Chapter and reset page to 1
+			if(ApplicationModel.Page.GetHashCode() < _pageLength) { 
+				ApplicationModel.NextPage();	
+			} else { 
+				ApplicationModel.NextChapter();
+				ApplicationModel.FirstPage();
+			}
+		} 
+
+		if(_action == "back") { 
+			int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
+			
+			//If current page is less the Chapter page length. Increment Page.
+			//Else increment Chapter and reset page to 1
+			if(ApplicationModel.Page.GetHashCode() > 1) { 
+				ApplicationModel.PrevPage();	
+			} else { 
+				ApplicationModel.PrevChapter();
+				ApplicationModel.FirstPage();
+			}
+		} 
+
+		//Concatenate CurChapter and CurPage into CurState string. (1,1) or (one,one);
+		ApplicationModel.CurState = ApplicationModel.Chapter.GetHashCode().ToString() + "," + ApplicationModel.Page.GetHashCode().ToString();
 	}
 
 	private void LoadJSON() { 

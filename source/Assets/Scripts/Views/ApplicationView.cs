@@ -14,7 +14,7 @@ public class ApplicationView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Setup Event Listeners
+		//Register Event Listeners
 		ApplicationController.OnJSONLoadComplete += HandleJSONLoadComplete;
 		ApplicationController.OnUpdateState += HandleUpdateState;
 	}
@@ -34,7 +34,7 @@ public class ApplicationView : MonoBehaviour {
 	//Event Handlers
 	private void HandleUpdateState() {
 		Debug.Log("Update State Recieved");
-		Debug.Log(ApplicationModel.CurState);
+		//Debug.Log(ApplicationModel.Chapter);
 		CurState = ApplicationModel.CurState;//Set Variable for UI render
 	}
 

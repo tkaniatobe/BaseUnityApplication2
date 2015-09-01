@@ -72,14 +72,10 @@
     <Compile Include="Assets\JSON\JSONObject.cs" />
     <Compile Include="Assets\JSON\JSONTemplates.cs" />
     <Compile Include="Assets\JSON\VectorTemplates.cs" />
-    <Compile Include="Assets\Scripts\Application\Sections\BaseSection.cs" />
-    <Compile Include="Assets\Scripts\Application\Sections\MainMenuSection.cs" />
-    <Compile Include="Assets\Scripts\Application\Sections\SectionManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\ApplicationController.cs" />
     <Compile Include="Assets\Scripts\EventListener.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
     <Compile Include="Assets\Scripts\Models\ApplicationModel.cs" />
-    <Compile Include="Assets\Scripts\Models\SceneData.cs" />
     <Compile Include="Assets\Scripts\Views\ApplicationView.cs" />
   </ItemGroup>
   <ItemGroup>
