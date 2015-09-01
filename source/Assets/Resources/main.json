@@ -1,0 +1,70 @@
+{
+    "modules": {
+        "clusterUi": {
+            "interests": [
+                {
+                    "action": "none",
+                    "trigger": "2,1"
+                },
+                {
+                    "action": "none",
+                    "trigger": "2,2"
+                },
+                {
+                    "action": "none",
+                    "trigger": "2,3"
+                }
+            ]
+			
+			
+        },
+		
+        "headUnitUi": {},
+		
+        "headUpUi": {},
+		
+        "mirror": {
+            "interests": [
+                {
+                    "action": "next",
+                    "trigger": "1,1"
+                },
+                {
+                    "action": "next",
+                    "trigger": "c1s2"
+                },
+                {
+                    "action": "next",
+                    "trigger": "c1s3"
+                }
+            ]
+        }
+    },
+    "story": [
+        [
+            0,
+            1,
+            2
+        ],
+        [
+            "c2s1",
+            "c2s2",
+            "c2s3"
+        ],
+        [
+            "c3s1",
+            "c3s2",
+            "c3s3"
+        ],
+        [
+            "c4s1",
+            "c4s2",
+            "c4s3"
+        ],
+        [
+            "c5s1",
+            "c5s2",
+            "c5s3"
+        ]
+    ]
+}

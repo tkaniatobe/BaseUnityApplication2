@@ -46,13 +46,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Application\ApplicationManager.cs" />
+     <Compile Include="Assets\JSON\JSONObject.cs" />
+     <Compile Include="Assets\JSON\JSONTemplates.cs" />
+     <Compile Include="Assets\JSON\VectorTemplates.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\BaseSection.cs" />
-     <Compile Include="Assets\Scripts\Application\Sections\EventListener.cs" />
-     <Compile Include="Assets\Scripts\Application\Sections\EventManager.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\MainMenuSection.cs" />
      <Compile Include="Assets\Scripts\Application\Sections\SectionManager.cs" />
-     <Compile Include="Assets\Scripts\RotateCube.cs" />
+     <Compile Include="Assets\Scripts\Controllers\ApplicationController.cs" />
+     <Compile Include="Assets\Scripts\EventListener.cs" />
+     <Compile Include="Assets\Scripts\EventManager.cs" />
+     <Compile Include="Assets\Scripts\Models\ApplicationModel.cs" />
+     <Compile Include="Assets\Scripts\Models\SceneData.cs" />
+     <Compile Include="Assets\Scripts\Views\ApplicationView.cs" />
+     <None Include="Assets\JSON\readme.txt" />
+     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -65,6 +72,10 @@
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{121BF4A6-CEF3-DE7D-AE07-24BD36A1C0BB}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
