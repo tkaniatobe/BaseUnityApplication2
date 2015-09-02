@@ -16,7 +16,7 @@ public class ApplicationView : MonoBehaviour {
 	//Events
 
 	//Events
-	public delegate void UpdateChapterHandler(ApplicationModel.ChapterState _state);
+	public delegate void UpdateChapterHandler(ChapterState _state);
 	public static event UpdateChapterHandler OnUpdateChapter;
 
 	// Use this for initialization
@@ -37,39 +37,39 @@ public class ApplicationView : MonoBehaviour {
 		//Buttons 
 		//--------------------------------------------------------------------------
         if (GUI.Button(new Rect(10, 10, 50, 30), "1")) {
-			DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.One);
+			DispatchStateEvent("OnUpdateChapter",ChapterState.One);
 		}
 
 		if (GUI.Button(new Rect(10, 50, 50, 30), "2")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Two);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Two);
 		}
 
 		if (GUI.Button(new Rect(10, 90, 50, 30), "3")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Three);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Three);
 		}
 
 		if (GUI.Button(new Rect(10, 130, 50, 30), "4")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Four);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Four);
 		}
 
 		if (GUI.Button(new Rect(10, 170, 50, 30), "5")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Five);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Five);
 		}
 
 		if (GUI.Button(new Rect(10, 210, 50, 30), "6")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Six);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Six);
 		}
 		if (GUI.Button(new Rect(10, 250, 50, 30), "7")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Seven);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Seven);
 		}
 		if (GUI.Button(new Rect(10, 290, 50, 30), "8")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Eight);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Eight);
 		}
 		if (GUI.Button(new Rect(10, 330, 50, 30), "9")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Nine);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Nine);
 		}
 		if (GUI.Button(new Rect(10, 370, 50, 30), "10")) {
-           DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Ten);
+           DispatchStateEvent("OnUpdateChapter",ChapterState.Ten);
 		}
     }
 
@@ -83,7 +83,7 @@ public class ApplicationView : MonoBehaviour {
 	/// Dispatches Events. Internal Events relative to this application
 	/// </summary>
 	/// <param name="_event">Event.</param>
-	private void DispatchStateEvent(string _event,ApplicationModel.ChapterState _state) { 
+	private void DispatchStateEvent(string _event,ChapterState _state) { 
 		switch(_event){
 			case "OnUpdateChapter":
 				if(OnUpdateChapter != null) {
@@ -97,10 +97,10 @@ public class ApplicationView : MonoBehaviour {
 	private void HandleUpdateState() {
 		//Debug.Log("Update State Recieved");
 		//Debug.Log(ApplicationModel.Chapter);
-		CurState = ApplicationModel.CurState;//Set Variable for UI render
+		CurState = ApplicationModel.CombinedState;//Set Variable for UI render
 		ChapterLabel.GetComponent<Text>().text = "Chapter " + ApplicationModel.Chapter.ToString();
 		PageLabel.GetComponent<Text>().text = "Page: " + ApplicationModel.Page.ToString();
-		StateLabel.GetComponent<Text>().text = ApplicationModel.CurState.ToString();
+		StateLabel.GetComponent<Text>().text = ApplicationModel.CombinedState;
 	}
 
 	private void HandleJSONLoadComplete() {

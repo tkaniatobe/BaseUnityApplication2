@@ -6,5 +6,6 @@ using System.Collections;
 /// </summary>
 public class PageData : MonoBehaviour {
 	public int ID;
-	public string name;
+	public string Name;
+	public PageState State;
 }

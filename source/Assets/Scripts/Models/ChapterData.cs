@@ -5,9 +5,7 @@ using System.Collections;
 /// Will contain data specific to each chapter.
 /// </summary>
 public class ChapterData : MonoBehaviour {
-
 	public int PageCount;
 	public int ID;
-	public string name;
-
+	public ChapterState State;
 }
