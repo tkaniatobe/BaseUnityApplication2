@@ -1,10 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controllers/ApplicationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Views/ApplicationView.cs">
     <Files>
-      <File FileName="Assets/Scripts/Models/ApplicationModel.cs" Line="86" Column="17" />
-      <File FileName="Assets/Scripts/Controllers/ApplicationController.cs" Line="119" Column="1" />
-      <File FileName="Assets/Scripts/Views/ApplicationView.cs" Line="42" Column="3" />
+      <File FileName="Assets/Scripts/Models/ApplicationModel.cs" Line="38" Column="45" />
+      <File FileName="Assets/Scripts/Controllers/ApplicationController.cs" Line="287" Column="89" />
+      <File FileName="Assets/Scripts/Views/ApplicationView.cs" Line="105" Column="1" />
+      <File FileName="Assets/Scripts/EventManager.cs" Line="11" Column="3" />
       <File FileName="Assets/Resources/main.json" Line="40" Column="14" />
       <File FileName="../../../../unity3d/projects/surfybrah/working/surfyBrah/Assets/Scripts/DataManager.cs" Line="11" Column="17" />
     </Files>

@@ -26,7 +26,7 @@ public class ApplicationModel : MonoBehaviour {
 	public static string CurState;
 	
 	public static void Init() {
-		ChapterPageLength.Add(ChapterState.One,5);
+		ChapterPageLength.Add(ChapterState.One,2);
 		ChapterPageLength.Add(ChapterState.Two,4);
 		ChapterPageLength.Add(ChapterState.Three,2);
 		ChapterPageLength.Add(ChapterState.Four,2);

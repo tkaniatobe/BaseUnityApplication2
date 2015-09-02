@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ApplicationView : MonoBehaviour {
 
 	//Public
 	public GameObject Camera;
 	public GameObject UI;
+
+	public GameObject ChapterLabel;
+	public GameObject PageLabel;
+	public GameObject StateLabel;
 
 	//Private
 	private string CurState;
@@ -25,42 +30,47 @@ public class ApplicationView : MonoBehaviour {
 
 	//UI - temp
 	void OnGUI () {   
-        // Automatic Layout
-		GUI.Label(new Rect(10, 10, 100, 20), CurState);
-        
-        if (GUI.Button(new Rect(10, 70, 50, 30), "1")) {
+		//Labels
+		//--------------------------------------------------------------------------
+		/*GUI.Label(new Rect(10, 10, 100, 20), CurState);
+		GUI.Label(new Rect(60, 10, 100, 20), "Chapter: " + ApplicationModel.Chapter.ToString());
+		GUI.Label(new Rect(60, 30, 100, 20), "Page: " + ApplicationModel.Page.ToString());*/
+
+		//Buttons 
+		//--------------------------------------------------------------------------
+        if (GUI.Button(new Rect(10, 10, 50, 30), "1")) {
 			DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.One);
 		}
 
-		if (GUI.Button(new Rect(10, 110, 50, 30), "2")) {
+		if (GUI.Button(new Rect(10, 50, 50, 30), "2")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Two);
 		}
 
-		if (GUI.Button(new Rect(10, 150, 50, 30), "3")) {
+		if (GUI.Button(new Rect(10, 90, 50, 30), "3")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Three);
 		}
 
-		if (GUI.Button(new Rect(10, 190, 50, 30), "4")) {
+		if (GUI.Button(new Rect(10, 130, 50, 30), "4")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Four);
 		}
 
-		if (GUI.Button(new Rect(10, 230, 50, 30), "5")) {
+		if (GUI.Button(new Rect(10, 170, 50, 30), "5")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Five);
 		}
 
-		if (GUI.Button(new Rect(10, 270, 50, 30), "6")) {
+		if (GUI.Button(new Rect(10, 210, 50, 30), "6")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Six);
 		}
-		if (GUI.Button(new Rect(10, 310, 50, 30), "7")) {
+		if (GUI.Button(new Rect(10, 250, 50, 30), "7")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Seven);
 		}
-		if (GUI.Button(new Rect(10, 350, 50, 30), "8")) {
+		if (GUI.Button(new Rect(10, 290, 50, 30), "8")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Eight);
 		}
-		if (GUI.Button(new Rect(10, 390, 50, 30), "9")) {
+		if (GUI.Button(new Rect(10, 330, 50, 30), "9")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Nine);
 		}
-		if (GUI.Button(new Rect(10, 430, 50, 30), "10")) {
+		if (GUI.Button(new Rect(10, 370, 50, 30), "10")) {
            DispatchStateEvent("OnUpdateChapter",ApplicationModel.ChapterState.Ten);
 		}
     }
@@ -90,6 +100,9 @@ public class ApplicationView : MonoBehaviour {
 		//Debug.Log("Update State Recieved");
 		//Debug.Log(ApplicationModel.Chapter);
 		CurState = ApplicationModel.CurState;//Set Variable for UI render
+		ChapterLabel.GetComponent<Text>().text = "Chapter " + ApplicationModel.Chapter.ToString();
+		PageLabel.GetComponent<Text>().text = "Page: " + ApplicationModel.Page.ToString();
+		StateLabel.GetComponent<Text>().text = ApplicationModel.CurState.ToString();
 	}
 
 	private void HandleJSONLoadComplete() {
