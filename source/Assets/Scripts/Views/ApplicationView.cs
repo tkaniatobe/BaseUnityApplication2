@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class ApplicationView : MonoBehaviour {
 
 	//Public
-	public GameObject Camera;
-	public GameObject UI;
 
 	public GameObject ChapterLabel;
 	public GameObject PageLabel;

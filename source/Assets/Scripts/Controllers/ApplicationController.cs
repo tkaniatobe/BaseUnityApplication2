@@ -17,11 +17,6 @@ public class ApplicationController : MonoBehaviour {
 	public delegate void UpdateStateHandler();
 	public static event UpdateStateHandler OnUpdateState;
 
-	/*public delegate void UpdateMoveStateForwardHandler();
-	public static event UpdateMoveStateForwardHandler OnMoveStateForward;
-
-	public delegate void UpdateMoveStateBackHandler();
-	public static event UpdateMoveStateBackHandler OnMoveStateBack;*/
 
 	// Use this for initialization
 	void Start () {
@@ -70,7 +65,7 @@ public class ApplicationController : MonoBehaviour {
 	}
 
 	//-------------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------------	
+	//--------------------STATE MANAGEMENT START-------------------------------------------
 	/// <summary>
 	/// Updates State and contains logic for both Page and Chapter.
 	/// </summary>
@@ -96,8 +91,6 @@ public class ApplicationController : MonoBehaviour {
 		} 
 
 		if(_direction == Direction.Backward) { 
-			int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
-
 			UpdateChapter(Direction.Backward);//Only updating Chapters Backward. Not Pages
 		} 
 
@@ -161,10 +154,14 @@ public class ApplicationController : MonoBehaviour {
 			}
 		}
 	}
-
+	//--------------------STATE MANAGEMENT END-------------------------------------------
+	//-------------------------------------------------------------------------------------
 	
 
-	//-------------------------------------------------------------------------------------
+
+
+
+	//--------------------JSON LOAD/PARSE START--------------------------------------------
 	//-------------------------------------------------------------------------------------
 	/// <summary>
 	/// Load JSON and dispatch event.
@@ -180,16 +177,11 @@ public class ApplicationController : MonoBehaviour {
 		DispatchEvent("OnJSONLoadComplete");
 	}
 
-	//access data (and Debug.Log)
+	/// <summary>
+	/// Parses JSON data
+	/// </summary>
+	/// <param name="obj">Object.</param>
 	private void AccessData(JSONObject obj){
-
-		
-		//Debug Tests...
-		/*
-		//Debug.Log(obj.type);
-		//Debug.Log(obj.list);
-		*/
-
 
 		//Modules
 		JSONObject modules = obj["modules"];
@@ -210,41 +202,15 @@ public class ApplicationController : MonoBehaviour {
 			//Debug.Log(clusterUI["interests"][i].keys[0]);
 			//Debug.Log(clusterUI["interests"][i].keys[1]);
 		}
-	
+			//Debug Tests...
+		/*
+		//Debug.Log(obj.type);
+		//Debug.Log(obj.list);
+		*/
 
-
-
-			//Reference from JSONObject tutorial....
-			/*switch(obj.type){
-				case JSONObject.Type.OBJECT:
-					for(int i = 0; i < obj.list.Count; i++){
-						string key = (string)obj.keys[i];
-						JSONObject j = (JSONObject)obj.list[i];
-						Debug.Log(obj.list.Count);
-						Debug.Log(key);
-						//accessData(j);
-					}
-					break;
-				case JSONObject.Type.ARRAY:
-					foreach(JSONObject j in obj.list){
-						accessData(j);
-					}
-					break;
-				case JSONObject.Type.STRING:
-					Debug.Log(obj.str);
-					break;
-				case JSONObject.Type.NUMBER:
-					Debug.Log(obj.n);
-					break;
-				case JSONObject.Type.BOOL:
-					Debug.Log(obj.b);
-					break;
-				case JSONObject.Type.NULL:
-					Debug.Log("NULL");
-					break;
-			}*/
 	}
-
+	//--------------------JSON LOAD/PARSE END--------------------------------------------
+	//-------------------------------------------------------------------------------------
 
 	/// <summary>
 	/// Handles events recieved from Modules.

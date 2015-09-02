@@ -50,10 +50,11 @@
      <Compile Include="Assets\JSON\JSONTemplates.cs" />
      <Compile Include="Assets\JSON\VectorTemplates.cs" />
      <Compile Include="Assets\Scripts\Controllers\ApplicationController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\StateController.cs" />
      <Compile Include="Assets\Scripts\EventListener.cs" />
      <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\Models\ApplicationModel.cs" />
+     <Compile Include="Assets\Scripts\Models\ChapterData.cs" />
+     <Compile Include="Assets\Scripts\Models\PageData.cs" />
      <Compile Include="Assets\Scripts\Views\ApplicationView.cs" />
      <None Include="Assets\JSON\readme.txt" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
