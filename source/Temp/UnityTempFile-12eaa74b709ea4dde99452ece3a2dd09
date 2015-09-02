@@ -75,6 +75,7 @@
 'Assets/JSON/JSONTemplates.cs'
 'Assets/JSON/VectorTemplates.cs'
 'Assets/Scripts/Controllers/ApplicationController.cs'
+'Assets/Scripts/Controllers/StateController.cs'
 'Assets/Scripts/EventListener.cs'
 'Assets/Scripts/EventManager.cs'
 'Assets/Scripts/Models/ApplicationModel.cs'

@@ -9,8 +9,8 @@ public class ApplicationModel : MonoBehaviour {
 	//Public
 	public static JSONObject JSON;
 
-	public enum ChapterState {One = 1,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten};
-	public enum PageState {One = 1, Two, Three, Four, Five }
+	public enum ChapterState {One = 0,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten};
+	public enum PageState {One = 0, Two, Three, Four, Five }
 
 	public static ChapterState Chapter;
 	public static PageState Page;
@@ -24,25 +24,18 @@ public class ApplicationModel : MonoBehaviour {
 	public static int CurPage;
 
 	public static string CurState;
-
-
-	void Start() { 
-		Chapter = ChapterState.One;
-		Debug.Log(Chapter);
-		Debug.Log(Chapter.GetHashCode());
-
-		Page = PageState.One;
-
-		ChapterPageLength.Add(ChapterState.One,3);
-		ChapterPageLength.Add(ChapterState.Two,5);
-		ChapterPageLength.Add(ChapterState.Three,3);
-		ChapterPageLength.Add(ChapterState.Four,3);
-		ChapterPageLength.Add(ChapterState.Five,3);
-		ChapterPageLength.Add(ChapterState.Six,3);
-		ChapterPageLength.Add(ChapterState.Seven,3);
-		ChapterPageLength.Add(ChapterState.Eight,3);
-		ChapterPageLength.Add(ChapterState.Nine,3);
-		ChapterPageLength.Add(ChapterState.Ten,3);
+	
+	public static void Init() {
+		ChapterPageLength.Add(ChapterState.One,5);
+		ChapterPageLength.Add(ChapterState.Two,4);
+		ChapterPageLength.Add(ChapterState.Three,2);
+		ChapterPageLength.Add(ChapterState.Four,2);
+		ChapterPageLength.Add(ChapterState.Five,2);
+		ChapterPageLength.Add(ChapterState.Six,2);
+		ChapterPageLength.Add(ChapterState.Seven,2);
+		ChapterPageLength.Add(ChapterState.Eight,2);
+		ChapterPageLength.Add(ChapterState.Nine,2);
+		ChapterPageLength.Add(ChapterState.Ten,2);
 
 		ChapterList.Add(ChapterState.One);
 		ChapterList.Add(ChapterState.Two);
@@ -60,23 +53,19 @@ public class ApplicationModel : MonoBehaviour {
 		PageList.Add(PageState.Three);
 		PageList.Add(PageState.Four);
 		PageList.Add(PageState.Five);
-
 	}
-	
+
 	/// <summary>
 	/// Move forward one chapter. 
 	/// </summary>
-	public static void NextChapter() { 
-		int _curChapterValue = ((int)Chapter.GetHashCode()) - 1;//Chapters enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+	/*public static void NextChapter() { 
+		int _curChapterValue = ((int)Chapter.GetHashCode());//Chapters enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
 		
 		//Check if ther are any chapters left.
-		if(_curChapterValue < (ChapterList.Count - 1)) {
+		if(_curChapterValue < (ChapterList.Count)) {
 			int _nextChapterValue = _curChapterValue + 1;//Set int value for next chapter.
 
 			Chapter = ChapterList[_nextChapterValue];//Set Chapter	
-
-			/*KeyValuePair<ChapterState,int> item = ChapterPageLength.ElementAt(_nextChapterValue);//Access Next Chapter in Dictionary
-			Chapter	= item.Key;//Set next Chapter*/
 		}
 	}
 
@@ -84,13 +73,14 @@ public class ApplicationModel : MonoBehaviour {
 	/// Move backward one chapter. 
 	/// </summary>
 	public static void PrevChapter() {
-		int _curChapterValue = ((int)Chapter.GetHashCode()) - 1;//Chapters enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+		int _curChapterValue = ((int)Chapter.GetHashCode());//get int value of current Chapter
 		
 		//Check if there are any chapters left.
-		if(_curChapterValue < (ChapterList.Count - 1)) {
+		if(_curChapterValue < (ChapterList.Count)) {
 			int _nextChapterValue = _curChapterValue - 1;//Set int value for next chapter.
 
-			Chapter = ChapterList[_nextChapterValue];//Set Chapter	
+			Chapter = ChapterList[_nextChapterValue];//Set Chapter
+			Page = PageState.One;//Set Page to one.
 		}
 	}
 
@@ -98,10 +88,10 @@ public class ApplicationModel : MonoBehaviour {
 	/// Move forward one page. 
 	/// </summary>
 	public static void NextPage() { 
-		int _curPageValue = ((int)Page.GetHashCode()) - 1;//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+		int _curPageValue = ((int)Page.GetHashCode());//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
 
 		//Check if there are any pages left.
-		if(_curPageValue < (PageList.Count - 1)) {
+		if(_curPageValue < (PageList.Count)) {
 			int _nextPageValue = _curPageValue + 1;//Set int value for next page.
 			
 			Page = PageList[_nextPageValue];//Set Page
@@ -109,7 +99,7 @@ public class ApplicationModel : MonoBehaviour {
 	}
 
 	public static void PrevPage() {
-		int _curPageValue = ((int)Page.GetHashCode()) - 1;//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+		int _curPageValue = ((int)Page.GetHashCode());//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
 
 		//
 		if(_curPageValue > 0) {
@@ -117,7 +107,7 @@ public class ApplicationModel : MonoBehaviour {
 			
 			Page = PageList[_nextPageValue];//Set Page
 		}
-	}
+	}*/
 
 	/// <summary>
 	/// Move forward one chapter. 
@@ -171,9 +161,6 @@ public class ApplicationModel : MonoBehaviour {
 			}
 	}*/
 
-	public static void FirstPage() { 
-		Page = PageState.One;
-	}
 
 
 }
