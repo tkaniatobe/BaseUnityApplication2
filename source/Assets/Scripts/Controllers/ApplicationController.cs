@@ -6,7 +6,7 @@ public class ApplicationController : MonoBehaviour {
 	//Public
 	 
 	//Private
-	private string JSONFilePath = "main";//Name of JSON file in "Assets/Resources" directory.
+	private string JSONFilePath = "mainJSON";//Name of JSON file in "Assets/Resources" directory.
 
 	private enum Direction {Forward = 0,Backward,None};//For use in changing states.
 
@@ -24,7 +24,9 @@ public class ApplicationController : MonoBehaviour {
 		LoadJSON();
 		Init();
 	}
-
+	/// <summary>
+	/// Checking for keyboard input
+	/// </summary>
 	void Update() {
 		//If Left Arrow is pressed move state back
         if (Input.GetKeyUp("left")) {
@@ -40,17 +42,17 @@ public class ApplicationController : MonoBehaviour {
         }
     }
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Public Methods
+	// PUBLIC METHODS
 
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Private Methods
+	// PRIVATE METHODS
 
 	private void Init() { 
 
 		//Set firts Chapter and Page
-		ApplicationModel.Chapter = ApplicationModel.ChapterState.One;
-		ApplicationModel.Page = ApplicationModel.PageState.One;		
+		ApplicationModel.Chapter = ChapterState.One;
+		ApplicationModel.Page = PageState.One;		
 		UpdateState(Direction.None);//Let UpdateState dispatch event and do nothing else.
 
 		
@@ -64,6 +66,7 @@ public class ApplicationController : MonoBehaviour {
 		DispatchEvent("OnUpdateState");
 	}
 
+
 	//-------------------------------------------------------------------------------------
 	//--------------------STATE MANAGEMENT START-------------------------------------------
 	/// <summary>
@@ -73,10 +76,16 @@ public class ApplicationController : MonoBehaviour {
 	private void UpdateState(Direction _direction) { 
 
 		if(_direction == Direction.Forward) { 
-			int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
-			//Debug.Log(_pageLength);			
+				
+			//TODO: Figure out how to access data in List 
+			//int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
+			int _curChapterNumber = ((int)ApplicationModel.Chapter.GetHashCode());
+			int _pageLength = ApplicationModel.ChapterDataList[_curChapterNumber].PageCount;
+			//int _pageLength = 2;//Temp value
+			
 
-			//If current page is less the Chapter page length. Increment Page.
+
+			//If current page is less than Chapter page length. Increment Page.
 			//Else increment Chapter and reset page to 1
 			if(ApplicationModel.Page.GetHashCode() < _pageLength) { 
 				//NextPage();
@@ -97,7 +106,7 @@ public class ApplicationController : MonoBehaviour {
 		//Concatenate CurChapter and CurPage into CurState string. (1,1) or (one,one);
 		string _chapterState = (ApplicationModel.Chapter.GetHashCode() + 1).ToString();//
 		string _pageState = (ApplicationModel.Page.GetHashCode() + 1).ToString();
-		ApplicationModel.CurState = _chapterState + "," + _pageState;
+		ApplicationModel.CombinedState = _chapterState + "," + _pageState;
 
 		DispatchEvent("OnUpdateState");//Dispatch Event. Listened to by ApplicationView...
 	}
@@ -108,25 +117,25 @@ public class ApplicationController : MonoBehaviour {
 	/// </summary>
 	/// <param name="_direction">Direction.</param>
 	private void UpdateChapter(Direction _direction) {
-		int _curChapterValue = ((int)ApplicationModel.Chapter.GetHashCode());//Chapters enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+		int _curChapterNumber = ((int)ApplicationModel.Chapter.GetHashCode());//Chapters enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
 
 		if(_direction == Direction.Forward) { 		
 			//Check if ther are any chapters left.
-			if(_curChapterValue < (ApplicationModel.ChapterList.Count) - 1) {
-				int _nextChapterValue = _curChapterValue + 1;//Set int value for next chapter.
-				ApplicationModel.Chapter = ApplicationModel.ChapterList[_nextChapterValue];//Set Chapter
-				ApplicationModel.Page = ApplicationModel.PageState.One;	
+			if(_curChapterNumber < (ApplicationModel.ChapterDataList.Count) - 1) {
+				int _nextChapterNumber = _curChapterNumber + 1;//Set int value for next chapter.
+				ApplicationModel.Chapter = ApplicationModel.ChapterDataList[_nextChapterNumber].State;//Set Chapter
+				ApplicationModel.Page = PageState.One;	
 			}
 		}
 
 		if(_direction == Direction.Backward) { 
 			//Check if there are any chapters left.
-			if(_curChapterValue > 0) {
-				int _nextChapterValue = _curChapterValue - 1;//Set int value for next chapter.
-				ApplicationModel.Chapter = ApplicationModel.ChapterList[_nextChapterValue];//Set Chapter
-				ApplicationModel.Page = ApplicationModel.PageState.One;//Set Page to one.
+			if(_curChapterNumber > 0) {
+				int _nextChapterNumber = _curChapterNumber - 1;//Set int value for next chapter.
+				ApplicationModel.Chapter = ApplicationModel.ChapterDataList[_nextChapterNumber].State;//Set Chapter
+				ApplicationModel.Page = PageState.One;//Set Page to one.
 			} else { 
-				ApplicationModel.Page = ApplicationModel.PageState.One;//Set Page to one.
+				ApplicationModel.Page = PageState.One;//Set Page to one.
 			}
 		}
 	}
@@ -137,26 +146,25 @@ public class ApplicationController : MonoBehaviour {
 	/// </summary>
 	/// <param name="_action">Action.</param>
 	private void UpdatePage(Direction _direction) {
-		int _curPageValue = ((int)ApplicationModel.Page.GetHashCode());//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
+		int _curPageNumber = ((int)ApplicationModel.Page.GetHashCode());//Pages enum values are 1-10. Dictionary is 0-9. Offsetting value by one.  
 		
 		if(_direction == Direction.Forward) { 		
 			//Check if there are any pages left.
-			if(_curPageValue < (ApplicationModel.PageList.Count)) {
-				int _nextPageValue = _curPageValue + 1;//Set int value for next page.
-				ApplicationModel.Page = ApplicationModel.PageList[_nextPageValue];//Set Page
+			if(_curPageNumber < (ApplicationModel.PageDataList.Count)) {
+				int _nextPageValue = _curPageNumber + 1;//Set int value for next page.
+				ApplicationModel.Page = ApplicationModel.PageDataList[_nextPageValue].State;//Set Page
 			}
 		}
 
 		if(_direction == Direction.Backward) { 
-			if(_curPageValue > 0) {
-				int _nextPageValue = _curPageValue - 1;//Set int value for next page.
-				ApplicationModel.Page = ApplicationModel.PageList[_nextPageValue];//Set Page
+			if(_curPageNumber > 0) {
+				int _nextPageValue = _curPageNumber - 1;//Set int value for next page.
+				ApplicationModel.Page = ApplicationModel.PageDataList[_nextPageValue].State;//Set Page
 			}
 		}
 	}
-	//--------------------STATE MANAGEMENT END-------------------------------------------
-	//-------------------------------------------------------------------------------------
-	
+
+
 
 
 
@@ -203,21 +211,16 @@ public class ApplicationController : MonoBehaviour {
 			//Debug.Log(clusterUI["interests"][i].keys[1]);
 		}
 			//Debug Tests...
-		/*
+		
 		//Debug.Log(obj.type);
 		//Debug.Log(obj.list);
-		*/
+		
 
 	}
-	//--------------------JSON LOAD/PARSE END--------------------------------------------
+
+
+	//--------------------EVENT SENDERS----------------------------------------------------
 	//-------------------------------------------------------------------------------------
-
-	/// <summary>
-	/// Handles events recieved from Modules.
-	/// </summary>
-	private void HandleExternalEvent() { 
-
-	}	
 
 	/// <summary>
 	/// Dispatches Events to External Applications.
@@ -250,13 +253,20 @@ public class ApplicationController : MonoBehaviour {
 		}
 	}
 
+	//--------------------EVENT RECIEVERS--------------------------------------------------
 	//-------------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------------
-	//Event Handlers
-	private void HandleUpdateChapter(ApplicationModel.ChapterState _state) {
+
+	private void HandleUpdateChapter(ChapterState _state) {
 		Debug.Log("Event Recieved");
 		ApplicationModel.Chapter = _state;
-		ApplicationModel.Page = ApplicationModel.PageState.One;
+		ApplicationModel.Page = PageState.One;
 		UpdateState(Direction.None);
 	}
+
+	/// <summary>
+	/// Handles events recieved from Modules.
+	/// </summary>
+	private void HandleExternalEvent() { 
+
+	}	
 }

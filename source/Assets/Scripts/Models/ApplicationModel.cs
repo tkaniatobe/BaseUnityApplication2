@@ -1,157 +1,73 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+
+
+//Enums. Outside of class for global access
+public enum ChapterState {One = 0,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten};
+public enum PageState {One = 0, Two, Three, Four, Five };
 
 
 public class ApplicationModel : MonoBehaviour {
 
 	//Public
-	public static JSONObject JSON;
-
-	public static Dictionary<ChapterState,ChapterData> ChapterDataDictionary = new Dictionary<ChapterState,ChapterData>();//NOTE: Testing this out...
-	public static Dictionary<PageState,PageData> PageDataDictionary = new Dictionary<PageState,PageData>();//NOTE: Testing this out...
-
-
-	public enum ChapterState {One = 0,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten};
-	public enum PageState {One = 0, Two, Three, Four, Five };
+	public static JSONObject JSON;//Set after JSON is loaded
+	
+	//Lists containing data for use with ChapterState and PageState state changes.
+	//Used in controller to iterate through states sequentially
+	public static List<ChapterData> ChapterDataList = new List<ChapterData>();
+	public static List<PageData> PageDataList = new List<PageData>();
 
 	public static ChapterState Chapter;
 	public static PageState Page;
 
-	public static Dictionary<ChapterState,int> ChapterPageLength = new Dictionary<ChapterState,int>();
-	public static List<ChapterState> ChapterList = new List<ChapterState>();
-	public static List<PageState> PageList = new List<PageState>();
-
-	public static int CurChapter;
-	public static int CurPage;
-
-	public static string CurState;
-	
-	private static void UpdateChapterDictionary(ChapterState _chapterState, int _pageCount) { 
-		//Create new ChapterData object and set stuff.
-		ChapterData _chapterData = new ChapterData();
-		_chapterData.PageCount = _pageCount;
-		//_chapterData.ID = _id;
-		
-		//Update dictionary with ChapterState and ChapterData
-		ChapterDataDictionary.Add(_chapterState,_chapterData);
-	}
-
-	private static void UpdatePageDictionary(PageState _pageState, int _id) { 
-		//Create new PageData object and set stuff.
-		PageData _pageData = new PageData();
-		_pageData.ID = _id;
-
-		
-		//Update dictionary with ChapterState and ChapterData
-		PageDataDictionary.Add(_pageState,_pageData);
-	}
+	public static string CombinedState;//Used to concatenate a string and dispatch to modules. (1,1) (2,1) etc...
 
 	public static void Init() {
 
 		//NOTE: Testing new system for State iteration.
-		UpdateChapterDictionary(ChapterState.One, 2);
-		UpdateChapterDictionary(ChapterState.Two, 4);
-		UpdateChapterDictionary(ChapterState.Three, 2);
-		UpdateChapterDictionary(ChapterState.Four, 2);
-		UpdateChapterDictionary(ChapterState.Five, 2);
-		UpdateChapterDictionary(ChapterState.Six, 2);
-		UpdateChapterDictionary(ChapterState.Seven, 2);
-		UpdateChapterDictionary(ChapterState.Eight, 2);
-		UpdateChapterDictionary(ChapterState.Nine, 2);
-		UpdateChapterDictionary(ChapterState.Ten, 2);
+		UpdateChapterList(ChapterState.One, 2);
+		UpdateChapterList(ChapterState.Two, 4);
+		UpdateChapterList(ChapterState.Three, 2);
+		UpdateChapterList(ChapterState.Four, 2);
+		UpdateChapterList(ChapterState.Five, 2);
+		UpdateChapterList(ChapterState.Six, 2);
+		UpdateChapterList(ChapterState.Seven, 2);
+		UpdateChapterList(ChapterState.Eight, 2);
+		UpdateChapterList(ChapterState.Nine, 2);
+		UpdateChapterList(ChapterState.Ten, 2);
 
-		UpdatePageDictionary(PageState.One,0);
-		UpdatePageDictionary(PageState.Two,1);
-		UpdatePageDictionary(PageState.Three,2);
-		UpdatePageDictionary(PageState.Four,3);
-		UpdatePageDictionary(PageState.Five,4);
+		UpdatePageList(PageState.One);
+		UpdatePageList(PageState.Two);
+		UpdatePageList(PageState.Three);
+		UpdatePageList(PageState.Four);
+		UpdatePageList(PageState.Five);
 
-
-		ChapterPageLength.Add(ChapterState.One,2);
-		ChapterPageLength.Add(ChapterState.Two,4);
-		ChapterPageLength.Add(ChapterState.Three,2);
-		ChapterPageLength.Add(ChapterState.Four,2);
-		ChapterPageLength.Add(ChapterState.Five,2);
-		ChapterPageLength.Add(ChapterState.Six,2);
-		ChapterPageLength.Add(ChapterState.Seven,2);
-		ChapterPageLength.Add(ChapterState.Eight,2);
-		ChapterPageLength.Add(ChapterState.Nine,2);
-		ChapterPageLength.Add(ChapterState.Ten,2);
-
-		ChapterList.Add(ChapterState.One);
-		ChapterList.Add(ChapterState.Two);
-		ChapterList.Add(ChapterState.Three);
-		ChapterList.Add(ChapterState.Four);
-		ChapterList.Add(ChapterState.Five);
-		ChapterList.Add(ChapterState.Six);
-		ChapterList.Add(ChapterState.Seven);
-		ChapterList.Add(ChapterState.Eight);
-		ChapterList.Add(ChapterState.Nine);
-		ChapterList.Add(ChapterState.Ten);
-
-		PageList.Add(PageState.One);
-		PageList.Add(PageState.Two);
-		PageList.Add(PageState.Three);
-		PageList.Add(PageState.Four);
-		PageList.Add(PageState.Five);
+	}
+	
+	//Sets Chapter Data and adds to ChapterDataList
+	private static void UpdateChapterList(ChapterState _chapterState, int _pageCount) { 
+		//Create new ChapterData object and set stuff.
+		ChapterData _chapterData = new ChapterData();
+		_chapterData.State = _chapterState;
+		_chapterData.PageCount = _pageCount;
+		_chapterData.ID = (int)_chapterState.GetHashCode();//Get ID from enum HashCode 0-9
+		
+		//Update dictionary with ChapterState and ChapterData
+		ChapterDataList.Add(_chapterData);
 	}
 
-	
+	//Sets Page Data and adds to PageDataList
+	private static void UpdatePageList(PageState _pageState) { 
+		//Create new PageData object and set stuff.
+		PageData _pageData = new PageData();
+		_pageData.State = _pageState;
+		_pageData.ID = (int)_pageState.GetHashCode();//Get ID from enum HashCode 0-4
 
-	/// <summary>
-	/// Move forward one chapter. 
-	/// </summary>
-	/*public static void NextChapter() { 
-		switch(Chapter){
-				case ChapterState.One:
-					Chapter = ChapterState.Two;
-					break;
-				case ChapterState.Two:
-					Chapter = ChapterState.Three;
-					break;
-				case ChapterState.Three:
-					Chapter = ChapterState.Four;
-					break;
-				case ChapterState.Four:
-					Chapter = ChapterState.Five;
-					break;
-				case ChapterState.Five:
-					Chapter = ChapterState.Six;
-					break;
-				case ChapterState.Six:
-					Chapter = ChapterState.Seven;
-					break;
-				case ChapterState.Seven:
-					Chapter = ChapterState.Eight;
-					break;
-				case ChapterState.Eight:
-					Chapter = ChapterState.Nine;
-					break;
-				case ChapterState.Nine:
-					Chapter = ChapterState.Ten;
-					break;
-			}
-	}*/
-
-	/*public static void NextPage() { 
-		switch(Page){
-				case PageState.One:
-					Page = PageState.Two;
-					break;
-				case PageState.Two:
-					Page = PageState.Three;
-					break;
-				case PageState.Three:
-					Page = PageState.Four;
-					break;
-				case PageState.Four:
-					Page = PageState.Five;
-					break;
-			}
-	}*/
-
+		
+		//Update dictionary with ChapterState and ChapterData
+		PageDataList.Add(_pageData);
+	}
 
 
 }
