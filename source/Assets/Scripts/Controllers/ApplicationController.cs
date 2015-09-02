@@ -111,7 +111,7 @@ public class ApplicationController : MonoBehaviour {
 		DispatchEvent("OnUpdateState");//Dispatch Event. Listened to by ApplicationView...
 	}
 
-	//-------------------------------------------------------------------------------------	
+	//-------------------------------------------------
 	/// <summary>
 	/// Updates the chapter. Forward or Backward.
 	/// </summary>
@@ -140,7 +140,7 @@ public class ApplicationController : MonoBehaviour {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------	
+	//--------------------------------------------------
 	/// <summary>
 	/// Updates the page. Forward or Backward.
 	/// </summary>
