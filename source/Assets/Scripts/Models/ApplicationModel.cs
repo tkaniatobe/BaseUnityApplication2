@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public enum ChapterState {One = 0,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten};
 public enum PageState {One = 0, Two, Three, Four, Five };
 
-
 public class ApplicationModel : MonoBehaviour {
 
 	//Public

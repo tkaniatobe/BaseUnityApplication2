@@ -77,13 +77,9 @@ public class ApplicationController : MonoBehaviour {
 
 		if(_direction == Direction.Forward) { 
 				
-			//TODO: Figure out how to access data in List 
-			//int _pageLength = ApplicationModel.ChapterPageLength[ApplicationModel.Chapter];//Get chapter page length from Dictionary.
+			//Get Current Chapter int based on enum hashcode
 			int _curChapterNumber = ((int)ApplicationModel.Chapter.GetHashCode());
 			int _pageLength = ApplicationModel.ChapterDataList[_curChapterNumber].PageCount;
-			//int _pageLength = 2;//Temp value
-			
-
 
 			//If current page is less than Chapter page length. Increment Page.
 			//Else increment Chapter and reset page to 1
@@ -163,9 +159,6 @@ public class ApplicationController : MonoBehaviour {
 			}
 		}
 	}
-
-
-
 
 
 

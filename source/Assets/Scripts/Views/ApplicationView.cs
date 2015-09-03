@@ -13,6 +13,9 @@ public class ApplicationView : MonoBehaviour {
 	//Private
 	private string CurState;
 	private GUIStyle GuiStyle = new GUIStyle(); //create a new variable
+
+	private float ButtonXoffset = 30;
+	private float ButtonYoffset = 30;
 	//Events
 
 	//Events
@@ -36,39 +39,39 @@ public class ApplicationView : MonoBehaviour {
 
 		//Buttons 
 		//--------------------------------------------------------------------------
-        if (GUI.Button(new Rect(10, 10, 50, 30), "1")) {
+        if (GUI.Button(new Rect(ButtonXoffset, 0 + ButtonYoffset, 50, 30), "1")) {
 			DispatchStateEvent("OnUpdateChapter",ChapterState.One);
 		}
 
-		if (GUI.Button(new Rect(10, 50, 50, 30), "2")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 40 + ButtonYoffset, 50, 30), "2")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Two);
 		}
 
-		if (GUI.Button(new Rect(10, 90, 50, 30), "3")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 80 + ButtonYoffset, 50, 30), "3")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Three);
 		}
 
-		if (GUI.Button(new Rect(10, 130, 50, 30), "4")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 120 + ButtonYoffset, 50, 30), "4")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Four);
 		}
 
-		if (GUI.Button(new Rect(10, 170, 50, 30), "5")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 160 + ButtonYoffset, 50, 30), "5")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Five);
 		}
 
-		if (GUI.Button(new Rect(10, 210, 50, 30), "6")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 200 + ButtonYoffset, 50, 30), "6")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Six);
 		}
-		if (GUI.Button(new Rect(10, 250, 50, 30), "7")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 240 + ButtonYoffset, 50, 30), "7")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Seven);
 		}
-		if (GUI.Button(new Rect(10, 290, 50, 30), "8")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 280 + ButtonYoffset, 50, 30), "8")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Eight);
 		}
-		if (GUI.Button(new Rect(10, 330, 50, 30), "9")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 320 + ButtonYoffset, 50, 30), "9")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Nine);
 		}
-		if (GUI.Button(new Rect(10, 370, 50, 30), "10")) {
+		if (GUI.Button(new Rect(ButtonXoffset, 360 + ButtonYoffset, 50, 30), "10")) {
            DispatchStateEvent("OnUpdateChapter",ChapterState.Ten);
 		}
     }
